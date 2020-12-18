@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 function TitleApp() {
   return (
     <Helmet>
-      <title>Grant Eadie</title>
+      <title>geotone</title>
     </Helmet>
   )
 }
