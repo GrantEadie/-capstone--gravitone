@@ -1,19 +1,27 @@
-import React from 'react'
 import * as Tone from 'tone';
 
+export default function MainSynth(noteArray) {
+  const synth = new Tone.PolySynth(Tone.Synth, 48);
+  let reverb = new Tone.Reverb(10, 10)
+  reverb.wet.value = .75
+  synth.set({
+    oscillator: {
+    type:  "sine"
+    },
+    envelope: {
+      attack: .05,
+      release: 2
+    },
+    volume: -9
+  })
 
-const synth = new Tone.Synth().toDestination()
+  synth.chain(reverb, Tone.Destination);
 
-function playSynth() {
-  synth.triggerAttackRelease("C3", "8n")
+  // Tone.setContext(new Tone.Context({ latencyHint : "interactive" }))
+
+
+  this.playSynth = function(noteIndex) {
+    console.log(noteArray[noteIndex])
+    synth.triggerAttackRelease(noteArray[noteIndex], '32n');
+  }
 }
-
-function MainSynth() {
-    return (
-      <div>
-        <button className="btn btn-outline-dark" onClick={() => playSynth()}>PLAY</button>
-      </div>
-    )
-}
-
-export default MainSynth

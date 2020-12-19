@@ -5,7 +5,6 @@ import MatterWorld from './MatterWorld'
 function App(){
   return (
     <>
-    <MainSynth/>
     <MatterWorld/>
     </>
   )
