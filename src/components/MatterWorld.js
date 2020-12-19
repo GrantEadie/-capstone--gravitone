@@ -3,6 +3,8 @@ import Sketch from "react-p5";
 import Matter from "matter-js";
 import * as Tone from "tone";
 
+import Boundary from './Boundary'
+
 let Engine = Matter.Engine,
   World = Matter.World,
   Events = Matter.Events,
@@ -13,20 +15,24 @@ let world;
 let circles = [];
 let ground1;
 let canvas;
-const noteArray = ["C4", "C2", "C3", "D4", "D2", "D3", "G4", "G2", "G3", "E4", "E2", "E3",]
+const noteArray = ["F4", "C5", "C3", "D4", "D5", "D3", "G4", "G5", "G3", "A4", "E5", "E3",]
 
 function MatterWorld() {
-  const synth = new Tone.PolySynth(Tone.Synth, 24);
+  const synth = new Tone.PolySynth(Tone.Synth, 48);
+  let reverb = new Tone.Reverb(10, 10)
+  reverb.wet.value = .75
   synth.set({
     oscillator: {
-    type:  "triangle"
+    type:  "sine"
     },
     envelope: {
-      attack: .15,
+      attack: .05,
       release: 2
-    }
+    },
+    volume: -9
   })
-  synth.chain(Tone.Destination);
+
+  synth.chain(reverb, Tone.Destination);
 
   Tone.setContext(new Tone.Context({ latencyHint : "interactive" }))
 
@@ -39,11 +45,10 @@ function MatterWorld() {
   function Circle(x, y, r, color, e) {
     this.body = Bodies.circle(x, y, r);
     this.body.restitution = 1;
-    this.body.setDensity = 0.01;
+    this.body.setDensity = .01;
     World.add(world, this.body);
 
     this.show = function () {
-      this.body.render.visible = true;
       let pos = this.body.position;
       let angle = this.body.angle;
 
@@ -100,15 +105,12 @@ function MatterWorld() {
         pair = pairs[i];
       }
 
-      // console.log(pair);
+      console.log(pair);
       playSynth(Math.floor(Math.random() * 11) + 1);
     });
     world.gravity.y = 1;
 
-    ground1 = Bodies.rectangle(p5.width / 2, 900, p5.width / 2, 30, {
-      isStatic: true,
-    });
-
+    ground1 = new Boundary(p5.width / 2, 900, p5.width / 2, 1, p5, world);
     World.add(world, ground1);
   };
 
@@ -121,6 +123,7 @@ function MatterWorld() {
   const draw = (p5) => {
     p5.background("#f7f7f7");
     Engine.update(engine);
+    ground1.show();
     for (let i = 0; i < circles.length; i++) {
       circles[i].show();
       if (circles[i].isOffScreen()) {
