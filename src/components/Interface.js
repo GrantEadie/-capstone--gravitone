@@ -37,33 +37,27 @@ function Interface(props) {
         handleMax="10000"
         handleMin="0"
         handleDefaultValue="10000"
+        handleDefaultDisplayValue="100"
       />
-      <p style={{ color: "GREY", marginBottom: "-10px" }}>
-        Generator X:{" "}
-        <input
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "white",
-            marginLeft: "10px",
-          }}
-          id="generatorXOutput"
-          type="text"
-          defaultValue="500"
-        ></input>
-      </p>
-      <div className="slidecontainer1">
-        <input
-          style={{ marginLeft: "-5px" }}
-          defaultValue="500"
-          type="range"
-          min="0"
-          max="1000"
-          onChange={props.handleChangeGenXAmount}
-          className="slider1"
-        />
-      </div>
-      <p style={{ color: "GREY", marginBottom: "-10px" }}>
+      <Fader
+        handleTitle="Generator X"
+        handleInputId="generatorXOutput"
+        handleChangeAmount={props.handleChangeGenXAmount}
+        handleMax="1000"
+        handleMin="0"
+        handleDefaultValue="500"
+        handleDefaultDisplayValue="500"
+      />
+      <Fader
+        handleTitle="Generator Y"
+        handleInputId="generatorYOutput"
+        handleChangeAmount={props.handleChangeGenYAmount}
+        handleMax="1000"
+        handleMin="0"
+        handleDefaultValue="500"
+        handleDefaultDisplayValue="500"
+      />
+      {/* <p style={{ color: "GREY", marginBottom: "-10px" }}>
         Generator Y:{" "}
         <input
           style={{
@@ -87,7 +81,7 @@ function Interface(props) {
           onChange={props.handleChangeGenYAmount}
           className="slider1"
         />
-      </div>
+      </div> */}
       <div className=" bg-transparent">
         <button
           className="btn btn-outline-warning"

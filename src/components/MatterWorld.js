@@ -70,7 +70,6 @@ function MatterWorld() {
         pair = pairs[i];
       }
       synth.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1);
-      // circles.find(x => x.body.id === pair.bodyB.id).changeColorFade();
       console.log(circles.find((x) => x.body.id === pair.bodyB.id));
     });
     world.gravity.y = 1;
@@ -140,6 +139,7 @@ function MatterWorld() {
       }
     }
   };
+
   function changeGravityAmount(event) {
     document.getElementById("gravityOutput").value = Math.round(
       event.target.value / 100
@@ -156,10 +156,10 @@ function MatterWorld() {
   }
 
   function changeGenYAmount(event) {
-    document.getElementById("generatorYOutput").value = event.target.value * -1;
+    document.getElementById("generatorYOutput").value = (event.target.value * -1) + 1000;
     Body.setPosition(generator.body, {
       x: generator.body.position.x,
-      y: event.target.value * -1 + 1000,
+      y: (event.target.value * -1) + 1000,
     });
   }
   return (

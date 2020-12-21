@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function Fader(props) {
 
-  const { handleTitle, handleInputId, handleChangeAmount, handleMax, handleMin, handleDefaultValue } = props
+  const { handleTitle, handleInputId, handleChangeAmount, handleMax, handleMin, handleDefaultValue, handleDefaultDisplayValue } = props
 
 return (
   <>
@@ -18,7 +18,7 @@ return (
           }}
           id={handleInputId}
           type="text"
-          defaultValue="100"
+          defaultValue={handleDefaultDisplayValue}
         ></input>
       </p>
       <div className="slidecontainer1">
