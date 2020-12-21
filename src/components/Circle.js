@@ -1,13 +1,16 @@
-import Matter from 'matter-js'
+import Matter from "matter-js";
 
 let World = Matter.World,
-    Bodies = Matter.Bodies;
+  Bodies = Matter.Bodies;
 
 export default function Circle(x, y, r, color, e, world) {
   this.body = Bodies.circle(x, y, r);
+  this.body.friction = 0;
   this.body.restitution = 1;
-  this.body.setDensity = .01;
+  this.body.density = 0.01;
+  this.body.mass = 100;
   World.add(world, this.body);
+  // this.id = this.body.id;
 
   this.show = function () {
     let pos = this.body.position;
@@ -27,7 +30,7 @@ export default function Circle(x, y, r, color, e, world) {
       } else if (color > 140) {
         return "rgb(62, 47, 99)";
       } else {
-        return color;
+        return "255";
       }
     }
 
@@ -42,11 +45,11 @@ export default function Circle(x, y, r, color, e, world) {
   };
 
   this.isOffScreen = function (e) {
-        let pos = this.body.position;
-        return pos.y > 1500;
-      };
-  
-      this.removeFromWorld = function () {
-        World.remove(world, this.body);
-      };
+    let pos = this.body.position;
+    return pos.y > 1500;
+  };
+
+  this.removeFromWorld = function () {
+    World.remove(world, this.body);
+  };
 }

@@ -2,30 +2,32 @@ import Matter from "matter-js";
 
 let Bodies = Matter.Bodies;
 
-export default function Boundary(x, y, w, h, color, e) {
+export default function Generator(x, y, r, color, e) {
   let options = {
     friction: 0,
     restitution: 1,
-    angle: Math.PI / 8,
     isStatic: true,
     frictionStatic: 0,
+    collisionFilter: {
+      mask: 0x0002
+    }
   };
 
-  this.body = Bodies.rectangle(x, y, w, h, options);
-  this.w = w;
-  this.h = h;
+  this.body = Bodies.circle(x, y, r, options);
+  
 
-  this.show = function () {
+  this.show = function() {
     let pos = this.body.position;
     let angle = this.body.angle;
 
-    e.fill(color);
-    e.noStroke();
     e.push();
-    e.translate(pos.x, pos.y - this.h / 2);
+    e.noFill()
+    e.stroke(255)
+    e.strokeWeight(1)
+    e.translate(pos.x, pos.y);
     e.rectMode(e.CENTER);
     e.rotate(angle);
-    e.rect(0, 0, this.w, 1);
+    e.ellipse(0, 0, r * 2);
     e.pop();
   };
 }
