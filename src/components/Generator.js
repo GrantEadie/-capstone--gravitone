@@ -22,7 +22,7 @@ export default function Generator(x, y, r, color, e) {
 
     e.push();
     e.noFill()
-    e.stroke(255)
+    e.stroke(color)
     e.strokeWeight(1)
     e.translate(pos.x, pos.y);
     e.rectMode(e.CENTER);

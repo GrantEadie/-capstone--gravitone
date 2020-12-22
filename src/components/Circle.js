@@ -3,7 +3,8 @@ import Matter from "matter-js";
 let World = Matter.World,
   Bodies = Matter.Bodies;
 
-export default function Circle(x, y, r, color, e, world) {
+export default function Circle(x, y, r, color, e, world, genId) {
+  this.genId = genId;
   this.body = Bodies.circle(x, y, r);
   this.body.friction = 0;
   this.body.restitution = 1;

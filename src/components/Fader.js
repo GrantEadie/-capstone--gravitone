@@ -3,24 +3,24 @@ import PropTypes from 'prop-types'
 
 function Fader(props) {
 
-  const { handleTitle, handleInputId, handleChangeAmount, handleMax, handleMin, handleDefaultValue, handleDefaultDisplayValue } = props
+  const { handleTitle, handleInputId, handleChangeAmount, handleMax, handleMin, handleDefaultValue, handleDefaultDisplayValue, sliderName } = props
 
 return (
   <>
-  <p style={{ color: "GREY", marginBottom: "-10px" }}>
-        {handleTitle}{" "}
+  <label for={handleInputId} style={{fontSize: "1vw", color: "rgb(150,150,150)", marginBottom: "-10px", display: "inline"}}>
+        {handleTitle}{'    '}
+      </label>
         <input
           style={{
             background: "transparent",
             border: "none",
             color: "white",
-            marginLeft: "10px",
+            fontSize: "1vw",
           }}
           id={handleInputId}
           type="text"
           defaultValue={handleDefaultDisplayValue}
         ></input>
-      </p>
       <div className="slidecontainer1">
         <input
           style={{ marginLeft: "-5px" }}
@@ -29,7 +29,7 @@ return (
           min={handleMin}
           max={handleMax}
           onChange={handleChangeAmount}
-          className="slider1"
+          className={sliderName}
         />
       </div>
   </>
@@ -42,7 +42,8 @@ Fader.propTypes = {
   handleChangeAmount: PropTypes.func,
   handleMax: PropTypes.number,
   handleMin: PropTypes.number,
-  handleDefaultValue: PropTypes.number
+  handleDefaultValue: PropTypes.number,
+  sliderName: PropTypes.string
 }
 
 export default Fader

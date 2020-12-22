@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sketch from "react-p5";
 import Matter from "matter-js";
 import Interface from "./Interface";
+import Header from './Header';
 
 import Boundary from "./Boundary";
 import Circle from "./Circle";
@@ -22,7 +23,10 @@ let circles = [];
 let ground1;
 let canvas;
 let generator;
+let generator1;
 let mConstraint;
+let p5Main;
+let createRate = 40;
 const noteArray = [
   "D6",
   "C6",
@@ -44,33 +48,35 @@ function MatterWorld() {
   const [mouseGenerate, handleMouseGenerate] = useState(false);
 
   const changeMouseGenerate = () => {
-    handleMouseGenerate(!mouseGenerate)
-  }
+    handleMouseGenerate(!mouseGenerate);
+  };
 
   const changeBeginAuto = () => {
-    handleBeginAuto(!beginAuto)
-  }
+    handleBeginAuto(!beginAuto);
+  };
 
-  let synth = new MainSynth(noteArray);
+  let synth = new MainSynth(noteArray, "sine");
+  let synth1 = new MainSynth(noteArray, "triangle");
 
   const setup = (p5, canvasParentRef) => {
+    p5Main = p5;
     canvas = p5
       .createCanvas(p5.windowWidth, p5.windowHeight)
       .parent(canvasParentRef);
     canvas.position(0, 0);
     canvas.style("z-index", "-1");
-    canvas.style("position", "absolute");
     engine = Engine.create();
     world = engine.world;
     Events.on(engine, "collisionStart", function (event) {
-      let pair = [];
+      let pair;
       let pairs = event.pairs;
 
-      for (var i = 0; i < pairs.length; i++) {
+      for (let i = 0; i < pairs.length; i++) {
         pair = pairs[i];
+        circles.find((x) => x.body.id === pair.bodyB.id).genId === 1
+          ? synth.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1)
+          : synth1.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1);
       }
-      synth.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1);
-      console.log(circles.find((x) => x.body.id === pair.bodyB.id));
     });
     world.gravity.y = 1;
 
@@ -80,11 +86,22 @@ function MatterWorld() {
       mouse: mouse,
     };
 
-    ground1 = new Boundary(p5.width / 2, 900, p5.width / 4, 50, 100, p5, world);
+    ground1 = new Boundary(
+      p5Main.windowWidth / 2,
+      900,
+      p5Main.windowWidth / 4,
+      50,
+      100,
+      p5,
+      world
+    );
     World.add(world, ground1.body);
 
-    generator = new Generator(500, 500, 20, 255, p5);
+    generator = new Generator(p5Main.windowWidth / 2, 500, 20, "#45b6fe", p5);
     World.add(world, generator.body);
+
+    generator1 = new Generator(p5Main.windowWidth / 2, p5Main.windowHeight*.2, 20, "#ff791f", p5);
+    World.add(world, generator1.body);
 
     mConstraint = MouseConstraint.create(engine, options);
     World.add(world, mConstraint);
@@ -111,10 +128,11 @@ function MatterWorld() {
   };
 
   const draw = (p5) => {
+    p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
     p5.background(60);
     if (beginAuto) {
       let s = p5.frameCount;
-      if (s % 40 === 0) {
+      if (s % createRate === 0) {
         circles.push(
           new Circle(
             generator.body.position.x,
@@ -122,13 +140,26 @@ function MatterWorld() {
             p5.random(3, 60),
             p5.random(140, 255),
             p5,
-            world
+            world,
+            1
+          )
+        );
+        circles.push(
+          new Circle(
+            generator1.body.position.x,
+            generator1.body.position.y,
+            p5.random(3, 60),
+            p5.random(140, 255),
+            p5,
+            world,
+            2
           )
         );
       }
     }
     Engine.update(engine);
     generator.show();
+    generator1.show();
     ground1.show();
     for (let i = 0; i < circles.length; i++) {
       circles[i].show();
@@ -140,6 +171,11 @@ function MatterWorld() {
     }
   };
 
+  function changeCreateRate(event) {
+    document.getElementById('createOutput').value = event.target.value
+    createRate = (event.target.value *-1) + 230
+  }
+
   function changeGravityAmount(event) {
     document.getElementById("gravityOutput").value = Math.round(
       event.target.value / 100
@@ -148,121 +184,56 @@ function MatterWorld() {
   }
 
   function changeGenXAmount(event) {
-    document.getElementById("generatorXOutput").value = event.target.value;
+    document.getElementById("generatorXOutput").value =
+      event.target.value / 10 + "%";
     Body.setPosition(generator.body, {
-      x: event.target.value,
+      x: (event.target.value / 1000) * p5Main.windowWidth,
       y: generator.body.position.y,
     });
   }
 
   function changeGenYAmount(event) {
-    document.getElementById("generatorYOutput").value = (event.target.value * -1) + 1000;
+    document.getElementById("generatorYOutput").value =
+      (event.target.value * -1 + 1000) / 10 + "%";
     Body.setPosition(generator.body, {
       x: generator.body.position.x,
-      y: (event.target.value * -1) + 1000,
+      y: ((event.target.value * -1 + 1000) / 1000) * p5Main.windowHeight,
+    });
+  }
+
+  function changeGenXAmount1(event) {
+    document.getElementById("generatorXOutput1").value = Math.round(event.target.value / 10) + "%";
+    Body.setPosition(generator1.body, {
+      x: (event.target.value / 1000) * p5Main.windowWidth,
+      y: generator1.body.position.y,
+    });
+  }
+
+  function changeGenYAmount1(event) {
+    document.getElementById("generatorYOutput1").value =
+    Math.round((event.target.value * -1 + 1000) / 10) + "%";
+    Body.setPosition(generator1.body, {
+      x: generator1.body.position.x,
+      y: ((event.target.value * -1 + 1000) / 1000) * p5Main.windowHeight,
     });
   }
   return (
-    // <div className="ml-2 mt-2">
-    //   <p style={{ color: "GREY", marginBottom: "-10px" }}>
-    //     GRAVITY{" "}
-    //     <input
-    //       style={{
-    //         background: "transparent",
-    //         border: "none",
-    //         color: "white",
-    //         marginLeft: "10px",
-    //       }}
-    //       id="gravityOutput"
-    //       type="text"
-    //       defaultValue="100"
-    //     ></input>
-    //   </p>
-    //   <div className="slidecontainer1">
-    //     <input
-    //       style={{ marginLeft: "-5px" }}
-    //       defaultValue="10000"
-    //       type="range"
-    //       min="0"
-    //       max="10000"
-    //       onChange={changeGravityAmount}
-    //       className="slider1"
-    //     />
-    //   </div>
-    //   <p style={{ color: "GREY", marginBottom: "-10px" }}>
-    //     Generator X:{" "}
-    //     <input
-    //       style={{
-    //         background: "transparent",
-    //         border: "none",
-    //         color: "white",
-    //         marginLeft: "10px",
-    //       }}
-    //       id="generatorXOutput"
-    //       type="text"
-    //       defaultValue="500"
-    //     ></input>
-    //   </p>
-    //   <div className="slidecontainer1">
-    //     <input
-    //       style={{ marginLeft: "-5px" }}
-    //       defaultValue="500"
-    //       type="range"
-    //       min="0"
-    //       max="1000"
-    //       onChange={changeGenXAmount}
-    //       className="slider1"
-    //     />
-    //   </div>
-    //   <p style={{ color: "GREY", marginBottom: "-10px" }}>
-    //     Generator Y:{" "}
-    //     <input
-    //       style={{
-    //         background: "transparent",
-    //         border: "none",
-    //         color: "white",
-    //         marginLeft: "10px",
-    //       }}
-    //       id="generatorYOutput"
-    //       type="text"
-    //       defaultValue="500"
-    //     ></input>
-    //   </p>
-    //   <div className="slidecontainer1">
-    //     <input
-    //       style={{ marginLeft: "-5px" }}
-    //       defaultValue="500"
-    //       type="range"
-    //       min="0"
-    //       max="1000"
-    //       onChange={changeGenYAmount}
-    //       className="slider1"
-    //     />
-    //   </div>
-    //   <div className=" bg-transparent">
-    //     <button
-    //       className="btn btn-outline-warning"
-    //       onClick={() => handleBeginAuto(!beginAuto)}
-    //     >
-    //       auto
-    //     </button>
-    //     <button
-    //       className="btn btn-outline-warning ml-3"
-    //       onClick={() => handleMouseGenerate(!mouseGenerate)}
-    //     >
-    //       mouse
-    //     </button>
-    //   </div>
-    <div>
-      <Interface
-        handleChangeGravityAmount={changeGravityAmount}
-        handleChangeGenXAmount={changeGenXAmount}
-        handleChangeGenYAmount={changeGenYAmount}
-        handleBeginAuto={changeBeginAuto}
-        handleMouseGenerate={changeMouseGenerate}
-      />
-      <Sketch setup={setup} draw={draw} mouseDragged={mp} />
-    </div>
+    <>
+    <Header/>
+      <div style={{width: '15vw'}}>
+        <Interface
+          handleChangeGravityAmount={changeGravityAmount}
+          handleChangeGenXAmount={changeGenXAmount}
+          handleChangeGenYAmount={changeGenYAmount}
+          handleChangeGenXAmount1={changeGenXAmount1}
+          handleChangeGenYAmount1={changeGenYAmount1}
+          handleBeginAuto={changeBeginAuto}
+          handleMouseGenerate={changeMouseGenerate}
+          handleChangeRate={changeCreateRate}
+        />
+      </div>
+          <Sketch setup={setup} draw={draw} mouseDragged={mp} />
+    </>
   );
 }
 
