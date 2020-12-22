@@ -134,6 +134,26 @@ function Interface(props) {
         />
         <br />
         <br />
+        <Fader
+          handleTitle="Osc Type Blue"
+          handleInputId="oscType"
+          handleChangeAmount={props.handleChangeOscType1}
+          handleMax="5"
+          handleMin="0"
+          handleDefaultValue="0"
+          handleDefaultDisplayValue="sine"
+          sliderName="slider2"
+        />
+        <Fader
+          handleTitle="Osc Type Orange"
+          handleInputId="oscType1"
+          handleChangeAmount={props.handleChangeOscType2}
+          handleMax="5"
+          handleMin="0"
+          handleDefaultValue="0"
+          handleDefaultDisplayValue="sine"
+          sliderName="slider1"
+        />
       </div>
     </>
   );
@@ -149,6 +169,7 @@ Interface.propTypes = {
   handleBeginAuto1: PropTypes.func,
   handleMouseGenerate: PropTypes.func,
   buttonCSS: PropTypes.object,
+  handleChangeOscType1: PropTypes.func
 };
 
 export default Interface;

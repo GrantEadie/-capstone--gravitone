@@ -7,7 +7,7 @@ function Fader(props) {
 
 return (
   <>
-  <label htmlFor={handleInputId} style={{fontSize: "1.1vmin", color: "rgb(150,150,150)", marginBottom: "-10px", display: "inline"}}>
+  <label htmlFor={handleInputId} style={{fontSize: "1vmin", color: "rgb(150,150,150)", display: "inline"}}>
         {handleTitle}{'    '}
       </label>
         <input
@@ -15,7 +15,7 @@ return (
             background: "transparent",
             border: "none",
             color: "white",
-            fontSize: "1.1vmin",
+            fontSize: "1vmin",
           }}
           id={handleInputId}
           type="text"

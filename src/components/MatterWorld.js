@@ -28,6 +28,10 @@ let generator1;
 let mConstraint;
 let p5Main;
 let createRate = 40;
+let synthType = 'sine';
+let synthType1 = 'sine'
+let synth;
+let synth1;
 const noteArray = [
   "D6",
   "C6",
@@ -61,8 +65,8 @@ function MatterWorld() {
     handleBeginAuto1(!beginAuto1);
   };
 
-  let synth = new MainSynth(noteArray, "sine");
-  let synth1 = new MainSynth(noteArray, "triangle");
+  synth = new MainSynth(noteArray, synthType);
+  synth1 = new MainSynth(noteArray, synthType1);
 
   const setup = (p5, canvasParentRef) => {
     p5Main = p5;
@@ -81,6 +85,7 @@ function MatterWorld() {
         circles.find((x) => x.body.id === pair.bodyB.id).genId === 1
           ? synth.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1)
           : synth1.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1);
+
       }
     });
     world.gravity.y = 1;
@@ -239,6 +244,36 @@ function MatterWorld() {
       y: ((event.target.value * -1 + 1000) / 1000) * p5Main.windowHeight,
     });
   }
+
+  function changeOscType1(event) {
+    const inputEvent = parseInt(event.target.value)
+    if (inputEvent === 0) {
+      synthType = "sine"
+    } else if (inputEvent === 1){
+      synthType = "triangle"
+    } else if (inputEvent === 2){
+      synthType = "sawtooth"
+    } else if (inputEvent === 3){
+      synthType = "square"
+    }
+    synth.changeOscType(synthType)
+    document.getElementById('oscType').value = synthType 
+  }
+
+  function changeOscType2(event) {
+    const inputEvent = parseInt(event.target.value)
+    if (inputEvent === 0) {
+      synthType1 = "sine"
+    } else if (inputEvent === 1){
+      synthType1 = "triangle"
+    } else if (inputEvent === 2){
+      synthType1 = "sawtooth"
+    } else if (inputEvent === 3){
+      synthType1 = "square"
+    }
+    synth1.changeOscType(synthType1)
+    document.getElementById('oscType1').value = synthType1
+  }
   return (
     <>
     <Sketch setup={setup} draw={draw} mouseClicked={mp} />
@@ -254,6 +289,8 @@ function MatterWorld() {
           handleBeginAuto1={changeBeginAuto1}
           handleMouseGenerate={changeMouseGenerate}
           handleChangeRate={changeCreateRate}
+          handleChangeOscType1={changeOscType1}
+          handleChangeOscType2={changeOscType2}
         />
       </div>
     </>
