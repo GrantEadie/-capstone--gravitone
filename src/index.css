@@ -7,6 +7,11 @@
   font-family: "Roboto", sans-serif;
   color: rgb(87, 85, 85);
   user-select: none;
+  
+}
+
+body {
+  background: rgb(60, 60, 60)
 }
 b {
   font-weight: 600;
@@ -39,6 +44,66 @@ button {
 .button1:hover {
   background: #ffffff;
   color: grey;
+}
+
+.button1:hover svg {
+  fill: grey
+}
+
+.button2 {
+  width: 100%;
+  background: transparent;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid rgb(247, 140, 0);
+  color: rgb(247, 140, 0);
+  margin: 0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: none;
+}
+
+.button2 svg {
+  fill: rgb(247, 140, 0);
+}
+
+.button2:hover {
+  background: rgb(247, 140, 0);
+  color: grey;
+}
+
+.button2:hover svg {
+  fill: white;
+} 
+
+.button3 {
+  width: 100%;
+  background: transparent;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid rgb(111, 173, 255);
+  color: rgb(111, 173, 255);
+  margin: 0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: none;
+}
+
+.button3 svg {
+  fill: rgb(111, 173, 255)
+}
+
+.button3:hover {
+  background: rgb(111, 173, 255);
+  color: grey;
+}
+
+.button3:hover svg {
+  fill: white
 }
 
 .slidecontainer1 {

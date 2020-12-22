@@ -21,6 +21,7 @@ let engine;
 let world;
 let circles = [];
 let ground1;
+let ground2;
 let canvas;
 let generator;
 let generator1;
@@ -45,6 +46,7 @@ const noteArray = [
 
 function MatterWorld() {
   const [beginAuto, handleBeginAuto] = useState(false);
+  const [beginAuto1, handleBeginAuto1] = useState(false);
   const [mouseGenerate, handleMouseGenerate] = useState(false);
 
   const changeMouseGenerate = () => {
@@ -55,6 +57,10 @@ function MatterWorld() {
     handleBeginAuto(!beginAuto);
   };
 
+  const changeBeginAuto1 = () => {
+    handleBeginAuto1(!beginAuto1);
+  };
+
   let synth = new MainSynth(noteArray, "sine");
   let synth1 = new MainSynth(noteArray, "triangle");
 
@@ -63,8 +69,7 @@ function MatterWorld() {
     canvas = p5
       .createCanvas(p5.windowWidth, p5.windowHeight)
       .parent(canvasParentRef);
-    canvas.position(0, 0);
-    canvas.style("z-index", "-1");
+    canvas.position(p5.windowWidth/6, 0);
     engine = Engine.create();
     world = engine.world;
     Events.on(engine, "collisionStart", function (event) {
@@ -87,20 +92,32 @@ function MatterWorld() {
     };
 
     ground1 = new Boundary(
-      p5Main.windowWidth / 2,
+      p5Main.windowWidth / 3,
       900,
       p5Main.windowWidth / 4,
       50,
-      100,
+      200,
       p5,
-      world
+      world,
+      0.125
     );
+    ground2 = new Boundary(
+      p5Main.windowWidth*.6,
+      p5Main.windowHeight*.8,
+      p5Main.windowWidth/3,
+      50,
+      200, 
+      p5, 
+      world,
+      -.25
+    )
     World.add(world, ground1.body);
+    World.add(world, ground2.body)
 
-    generator = new Generator(p5Main.windowWidth / 2, 500, 20, "#45b6fe", p5);
+    generator = new Generator(p5Main.windowWidth / 3, 500, 20, "#45b6fe", p5);
     World.add(world, generator.body);
 
-    generator1 = new Generator(p5Main.windowWidth / 2, p5Main.windowHeight*.2, 20, "#ff791f", p5);
+    generator1 = new Generator(p5Main.windowWidth / 3, p5Main.windowHeight*.2, 20, "#ff791f", p5);
     World.add(world, generator1.body);
 
     mConstraint = MouseConstraint.create(engine, options);
@@ -110,7 +127,6 @@ function MatterWorld() {
   const mp = (e) => {
     if (mouseGenerate) {
       World.remove(world, mConstraint);
-      if (e.frameCount % 5 === 0) {
         circles.push(
           new Circle(
             e.mouseX,
@@ -121,7 +137,6 @@ function MatterWorld() {
             world
           )
         );
-      }
     } else {
       World.add(world, mConstraint);
     }
@@ -130,7 +145,7 @@ function MatterWorld() {
   const draw = (p5) => {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
     p5.background(60);
-    if (beginAuto) {
+    if (beginAuto1) {
       let s = p5.frameCount;
       if (s % createRate === 0) {
         circles.push(
@@ -144,6 +159,11 @@ function MatterWorld() {
             1
           )
         );
+      }
+    }
+    if (beginAuto) {
+      let s = p5.frameCount;
+      if (s%createRate === 0) {
         circles.push(
           new Circle(
             generator1.body.position.x,
@@ -155,12 +175,14 @@ function MatterWorld() {
             2
           )
         );
+
       }
     }
     Engine.update(engine);
     generator.show();
     generator1.show();
     ground1.show();
+    ground2.show();
     for (let i = 0; i < circles.length; i++) {
       circles[i].show();
       if (circles[i].isOffScreen()) {
@@ -219,6 +241,7 @@ function MatterWorld() {
   }
   return (
     <>
+    <Sketch setup={setup} draw={draw} mouseClicked={mp} />
     <Header/>
       <div style={{width: '15vw'}}>
         <Interface
@@ -228,11 +251,11 @@ function MatterWorld() {
           handleChangeGenXAmount1={changeGenXAmount1}
           handleChangeGenYAmount1={changeGenYAmount1}
           handleBeginAuto={changeBeginAuto}
+          handleBeginAuto1={changeBeginAuto1}
           handleMouseGenerate={changeMouseGenerate}
           handleChangeRate={changeCreateRate}
         />
       </div>
-          <Sketch setup={setup} draw={draw} mouseDragged={mp} />
     </>
   );
 }

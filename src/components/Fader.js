@@ -7,7 +7,7 @@ function Fader(props) {
 
 return (
   <>
-  <label for={handleInputId} style={{fontSize: "1vw", color: "rgb(150,150,150)", marginBottom: "-10px", display: "inline"}}>
+  <label htmlFor={handleInputId} style={{fontSize: "1.1vmin", color: "rgb(150,150,150)", marginBottom: "-10px", display: "inline"}}>
         {handleTitle}{'    '}
       </label>
         <input
@@ -15,7 +15,7 @@ return (
             background: "transparent",
             border: "none",
             color: "white",
-            fontSize: "1vw",
+            fontSize: "1.1vmin",
           }}
           id={handleInputId}
           type="text"
@@ -40,9 +40,9 @@ Fader.propTypes = {
   handleTitle: PropTypes.string,
   handleInputId: PropTypes.string,
   handleChangeAmount: PropTypes.func,
-  handleMax: PropTypes.number,
-  handleMin: PropTypes.number,
-  handleDefaultValue: PropTypes.number,
+  handleMax: PropTypes.string,
+  handleMin: PropTypes.string,
+  handleDefaultValue: PropTypes.string,
   sliderName: PropTypes.string
 }
 

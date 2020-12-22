@@ -2,11 +2,12 @@ import Matter from "matter-js";
 
 let Bodies = Matter.Bodies;
 
-export default function Boundary(x, y, w, h, color, e) {
+export default function Boundary(x, y, w, h, color, e, world, a) {
+  console.log(a)
   let options = {
     friction: 0,
     restitution: 1,
-    angle: Math.PI / 8,
+    angle: Math.PI * a,
     isStatic: true,
     frictionStatic: 0,
   };

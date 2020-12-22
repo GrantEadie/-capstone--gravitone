@@ -1,4 +1,5 @@
 import Matter from "matter-js";
+import { blueRange, orangeRange } from './Colors'
 
 let World = Matter.World,
   Bodies = Matter.Bodies;
@@ -18,21 +19,40 @@ export default function Circle(x, y, r, color, e, world, genId) {
     let angle = this.body.angle;
 
     function colorMaker(color) {
+    if (genId === 1) {
+        if (color > 240) {
+          return blueRange[0]
+        } else if (color > 220) {
+          return blueRange[1]
+        } else if (color > 200) {
+          return blueRange[2]
+        } else if (color > 180) {
+          return blueRange[3]
+        } else if (color > 160) {
+          return blueRange[4]
+        } else if (color > 140) {
+          return blueRange[5]
+        } else {
+          return "255";
+        }
+    } else {
       if (color > 240) {
-        return "rgb(236, 84, 76)";
+        return orangeRange[0]
       } else if (color > 220) {
-        return "rgb(243, 117, 136)";
+        return orangeRange[1]
       } else if (color > 200) {
-        return "rgb(92, 28, 52)";
+        return orangeRange[2]
       } else if (color > 180) {
-        return "rgb(79, 83, 162)";
+        return orangeRange[3]
       } else if (color > 160) {
-        return "rgb(191, 109, 157)";
+        return orangeRange[4]
       } else if (color > 140) {
-        return "rgb(62, 47, 99)";
+        return orangeRange[5]
       } else {
         return "255";
       }
+    }
+
     }
 
     e.fill(colorMaker(color));
