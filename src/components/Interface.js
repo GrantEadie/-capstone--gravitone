@@ -72,8 +72,8 @@ function Interface(props) {
           handleChangeAmount={props.handleChangeRate}
           handleMax="200"
           handleMin="5"
-          handleDefaultValue="40"
-          handleDefaultDisplayValue="40"
+          handleDefaultValue="170"
+          handleDefaultDisplayValue="170"
           sliderName="slider3"
         />
         <Fader
@@ -135,24 +135,85 @@ function Interface(props) {
         <br />
         <br />
         <Fader
-          handleTitle="Osc Type Blue"
+          handleTitle="Osc Type"
           handleInputId="oscType"
           handleChangeAmount={props.handleChangeOscType1}
-          handleMax="5"
+          handleMax="3"
           handleMin="0"
           handleDefaultValue="0"
           handleDefaultDisplayValue="sine"
           sliderName="slider2"
         />
         <Fader
-          handleTitle="Osc Type Orange"
+          handleTitle="Osc Type"
           handleInputId="oscType1"
           handleChangeAmount={props.handleChangeOscType2}
-          handleMax="5"
+          handleMax="3"
           handleMin="0"
           handleDefaultValue="0"
           handleDefaultDisplayValue="sine"
           sliderName="slider1"
+        />
+        <Fader
+          handleTitle="Hall Amount"
+          handleInputId="reverb"
+          handleChangeAmount={props.handleReverb}
+          handleMax="100"
+          handleMin="0"
+          handleDefaultValue="70"
+          handleDefaultDisplayValue="70"
+          sliderName="slider3"
+        />
+        <Fader
+          handleTitle="Echo Amount"
+          handleInputId="delayWet"
+          handleChangeAmount={props.handleDelayAmount}
+          handleMax="100"
+          handleMin="0"
+          handleDefaultValue="30"
+          handleDefaultDisplayValue="30"
+          sliderName="slider3"
+        />
+        <Fader
+          handleTitle="Filter Freq."
+          handleInputId="filterFreq"
+          handleChangeAmount={props.handleFreqAmount}
+          handleMax="10000"
+          handleMin="20"
+          handleDefaultValue="5000"
+          handleDefaultDisplayValue="5000hz"
+          sliderName="slider3"
+        />
+        <Fader
+          handleTitle="Chord"
+          handleInputId="chordName"
+          handleChangeAmount={props.handleChord}
+          handleMax="3"
+          handleMin="0"
+          handleDefaultValue="0"
+          handleDefaultDisplayValue="Pentatonic"
+          sliderName="slider3"
+        />
+        <br/><br/>
+        <Fader
+          handleTitle="1 Barrier Tilt"
+          handleInputId="barrier1Tilt"
+          handleChangeAmount={props.handleBarrier1Tilt}
+          handleMax="1000"
+          handleMin="-1000"
+          handleDefaultValue="0"
+          handleDefaultDisplayValue="0"
+          sliderName="slider3"
+        />
+        <Fader
+          handleTitle="2 Barrier Tilt"
+          handleInputId="barrier2Tilt"
+          handleChangeAmount={props.handleBarrier2Tilt}
+          handleMax="1000"
+          handleMin="0"
+          handleDefaultValue="500"
+          handleDefaultDisplayValue="50%"
+          sliderName="slider3"
         />
       </div>
     </>
@@ -169,7 +230,13 @@ Interface.propTypes = {
   handleBeginAuto1: PropTypes.func,
   handleMouseGenerate: PropTypes.func,
   buttonCSS: PropTypes.object,
-  handleChangeOscType1: PropTypes.func
+  handleChangeOscType1: PropTypes.func,
+  handleReverb: PropTypes.func,
+  handleDelayAmount: PropTypes.func,
+  handleFreqAmount: PropTypes.func,
+  handleChord: PropTypes.func,
+  handleBarrier1Tilt: PropTypes.func,
+  handleBarrier2Tilt: PropTypes.func
 };
 
 export default Interface;

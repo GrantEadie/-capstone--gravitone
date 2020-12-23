@@ -7,20 +7,21 @@ function Fader(props) {
 
 return (
   <>
-  <label htmlFor={handleInputId} style={{fontSize: "1vmin", color: "rgb(150,150,150)", display: "inline"}}>
-        {handleTitle}{'    '}
-      </label>
+  <p style={{fontSize: "10px", color: "rgb(150,150,150)", display: "inline"}}>
+        {handleTitle}{' '}
         <input
           style={{
             background: "transparent",
             border: "none",
             color: "white",
-            fontSize: "1vmin",
+            fontSize: "10px",
+            marginLeft: "5px"
           }}
           id={handleInputId}
           type="text"
           defaultValue={handleDefaultDisplayValue}
-        ></input>
+          ></input>
+          </p>
       <div className="slidecontainer1">
         <input
           style={{ marginLeft: "-5px" }}

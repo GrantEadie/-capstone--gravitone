@@ -116,7 +116,7 @@ button {
 .slider1 {
   -webkit-appearance: none;
   width: 100%;
-  height: 8px;
+  height: 4px;
   background: #949494;
   outline: none;
   -webkit-transition: 0.2s;
@@ -147,7 +147,7 @@ button {
 .slider2 {
   -webkit-appearance: none;
   width: 100%;
-  height: 8px;
+  height: 4px;
   background: #949494;
   outline: none;
   -webkit-transition: 0.2s;
@@ -178,7 +178,7 @@ button {
 .slider3 {
   -webkit-appearance: none;
   width: 100%;
-  height: 8px;
+  height: 4px;
   background: #949494;
   outline: none;
   -webkit-transition: 0.2s;

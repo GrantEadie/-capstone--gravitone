@@ -4,6 +4,7 @@ import Sketch from "react-p5";
 import Matter from "matter-js";
 import Interface from "./Interface";
 import Header from './Header';
+import { Am7, CM6, Dm7, Pentatonic } from './Chords';
 
 import Boundary from "./Boundary";
 import Circle from "./Circle";
@@ -32,21 +33,6 @@ let synthType = 'sine';
 let synthType1 = 'sine'
 let synth;
 let synth1;
-const noteArray = [
-  "D6",
-  "C6",
-  "A5",
-  "G5",
-  "F5",
-  "E5",
-  "C5",
-  "A4",
-  "G4",
-  "F4",
-  "E4",
-  "D4",
-  "C4",
-];
 
 function MatterWorld() {
   const [beginAuto, handleBeginAuto] = useState(false);
@@ -65,8 +51,8 @@ function MatterWorld() {
     handleBeginAuto1(!beginAuto1);
   };
 
-  synth = new MainSynth(noteArray, synthType);
-  synth1 = new MainSynth(noteArray, synthType1);
+  synth = new MainSynth(Am7, synthType);
+  synth1 = new MainSynth(Am7, synthType1);
 
   const setup = (p5, canvasParentRef) => {
     p5Main = p5;
@@ -83,8 +69,8 @@ function MatterWorld() {
       for (let i = 0; i < pairs.length; i++) {
         pair = pairs[i];
         circles.find((x) => x.body.id === pair.bodyB.id).genId === 1
-          ? synth.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1)
-          : synth1.playSynth(Math.round(pair.bodyB.circleRadius / 5), 1);
+          ? synth.playSynth(Math.round(pair.bodyB.circleRadius / 4), 1)
+          : synth1.playSynth(Math.round(pair.bodyB.circleRadius / 4), 1);
 
       }
     });
@@ -104,7 +90,7 @@ function MatterWorld() {
       200,
       p5,
       world,
-      0.125
+      0.025
     );
     ground2 = new Boundary(
       p5Main.windowWidth*.6,
@@ -274,6 +260,55 @@ function MatterWorld() {
     synth1.changeOscType(synthType1)
     document.getElementById('oscType1').value = synthType1
   }
+
+  function changeReverb(event) {
+    let reverbAmount= parseInt(event.target.value)
+    synth.changeReverb(reverbAmount)
+    synth1.changeReverb(reverbAmount)
+    document.getElementById('reverb').value = reverbAmount
+  }
+
+  function changeDelayAmount(event) {
+    let delayAmount= parseInt(event.target.value)
+    synth.changeDelayAmount(delayAmount)
+    synth1.changeDelayAmount(delayAmount)
+    document.getElementById('delayWet').value = delayAmount
+  }
+
+  function changeFilterFreq(event) {
+    let freqAmount = parseInt(event.target.value)
+    synth.changeFilterFreq(freqAmount)
+    synth1.changeFilterFreq(freqAmount)
+    document.getElementById('filterFreq').value = freqAmount + "hz"
+  }
+
+  function changeNoteArray(event) {
+    let inputArray = parseInt(event.target.value)
+    if (inputArray === 0) {
+      synth.noteArray = Pentatonic
+      synth1.noteArray = Pentatonic
+      document.getElementById('chordName').value = 'Pentatonic'
+    } else if (inputArray === 1) {
+      synth.noteArray = CM6
+      synth1.noteArray = CM6
+      document.getElementById('chordName').value = 'C major 6'
+    } else if (inputArray === 2) {
+      synth.noteArray = Dm7
+      synth1.noteArray = Dm7
+      document.getElementById('chordName').value = 'D minor 7'
+    } else if (inputArray === 3) {
+      synth.noteArray = Am7
+      synth1.noteArray = Am7
+      document.getElementById('chordName').value = 'A minor 7'
+    }
+  }
+
+  function changeBarrier1Tilt(event) {
+    let inputTilt = parseInt(event.target.value)/1000
+    document.getElementById('barrier1Tilt').value = Math.PI * inputTilt
+    Body.setAnlge(ground1.body.angle, Math.PI * inputTilt)
+  }
+
   return (
     <>
     <Sketch setup={setup} draw={draw} mouseClicked={mp} />
@@ -291,6 +326,12 @@ function MatterWorld() {
           handleChangeRate={changeCreateRate}
           handleChangeOscType1={changeOscType1}
           handleChangeOscType2={changeOscType2}
+          handleReverb={changeReverb}
+          handleDelayAmount={changeDelayAmount}
+          handleFreqAmount={changeFilterFreq}
+          handleChord={changeNoteArray}
+          handleBarrier1Tilt={changeBarrier1Tilt}
+          // handleBarrier2Tilt={changeBarrier2Tilt}
         />
       </div>
     </>
