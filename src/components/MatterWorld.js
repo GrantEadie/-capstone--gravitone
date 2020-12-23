@@ -62,14 +62,12 @@ function MatterWorld() {
     engine = Engine.create();
     world = engine.world;
     Events.on(engine, "collisionStart", function (event) {
-      let pair;
       let pairs = event.pairs;
 
       for (let i = 0; i < pairs.length; i++) {
-        pair = pairs[i];
-        circles.find((x) => x.body.id === pair.bodyB.id).genId === 1
-          ? synth.playSynth(Math.round(pair.bodyB.circleRadius / 4), 1)
-          : synth1.playSynth(Math.round(pair.bodyB.circleRadius / 4), 1);
+        circles.find((x) => x.body.id === pairs[i].bodyB.id).genId === 1
+          ? synth.playSynth(Math.round(pairs[i].bodyB.circleRadius / 4), 1)
+          : synth1.playSynth(Math.round(pairs[i].bodyB.circleRadius / 4), 1);
 
       }
     });
