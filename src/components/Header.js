@@ -1,19 +1,20 @@
 import React from "react";
+import { NavLink } from 'react-router-dom'
 
 function Header() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-transparent border-bottom border-secondary">
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <a className="nav-link logo" href="https://github.com/GrantEadie/-capstone--gravitone">
+            <NavLink to='/' className="nav-link logo">
               Home <span className="sr-only">(current)</span>
-            </a>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link logo" href="https://github.com/GrantEadie/-capstone--gravitone">
+            <NavLink to='/about' className='nav-link logo'>
               About
-            </a>
+            </NavLink>
           </li>
           <li className="nav-item ">
             <a className="nav-link logo" href="https://github.com/GrantEadie/-capstone--gravitone">

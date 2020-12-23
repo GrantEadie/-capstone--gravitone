@@ -42,7 +42,7 @@ function Interface(props) {
 
   return (
     <>
-      <div className="ml-3 mt-5">
+      <div className="ml-3 mt-5 ">
         <div className="mb-3">
           <button
             className="button1"
@@ -132,6 +132,26 @@ function Interface(props) {
           handleDefaultDisplayValue="20%"
           sliderName="slider1"
         />
+        <Fader
+          handleTitle="1 Barrier Tilt"
+          handleInputId="barrier1Tilt"
+          handleChangeAmount={props.handleBarrier1Tilt}
+          handleMax="1000"
+          handleMin="-1000"
+          handleDefaultValue="125"
+          handleDefaultDisplayValue="125"
+          sliderName="slider3"
+        />
+        <Fader
+          handleTitle="2 Barrier Tilt"
+          handleInputId="barrier2Tilt"
+          handleChangeAmount={props.handleBarrier2Tilt}
+          handleMax="1000"
+          handleMin="-1000"
+          handleDefaultValue="-250"
+          handleDefaultDisplayValue="-250"
+          sliderName="slider3"
+        />
         <br />
         <br />
         <Fader
@@ -195,26 +215,6 @@ function Interface(props) {
           sliderName="slider3"
         />
         <br/><br/>
-        <Fader
-          handleTitle="1 Barrier Tilt"
-          handleInputId="barrier1Tilt"
-          handleChangeAmount={props.handleBarrier1Tilt}
-          handleMax="1000"
-          handleMin="-1000"
-          handleDefaultValue="0"
-          handleDefaultDisplayValue="0"
-          sliderName="slider3"
-        />
-        <Fader
-          handleTitle="2 Barrier Tilt"
-          handleInputId="barrier2Tilt"
-          handleChangeAmount={props.handleBarrier2Tilt}
-          handleMax="1000"
-          handleMin="0"
-          handleDefaultValue="500"
-          handleDefaultDisplayValue="50%"
-          sliderName="slider3"
-        />
       </div>
     </>
   );

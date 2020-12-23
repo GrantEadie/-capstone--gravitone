@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 function TitleApp() {
   return (
     <Helmet>
-      <title>geotone</title>
+      <title>gravitone</title>
     </Helmet>
   )
 }

@@ -3,7 +3,6 @@ import { useState } from "react";
 import Sketch from "react-p5";
 import Matter from "matter-js";
 import Interface from "./Interface";
-import Header from './Header';
 import { Am7, CM6, Dm7, Pentatonic } from './Chords';
 
 import Boundary from "./Boundary";
@@ -57,9 +56,9 @@ function MatterWorld() {
   const setup = (p5, canvasParentRef) => {
     p5Main = p5;
     canvas = p5
-      .createCanvas(p5.windowWidth, p5.windowHeight)
+      .createCanvas(1200, 1200)
       .parent(canvasParentRef);
-    canvas.position(p5.windowWidth/6, 0);
+    canvas.position(p5.windowWidth/6, 75);
     engine = Engine.create();
     world = engine.world;
     Events.on(engine, "collisionStart", function (event) {
@@ -83,19 +82,20 @@ function MatterWorld() {
     };
 
     ground1 = new Boundary(
-      p5Main.windowWidth / 3,
+      250,
       900,
-      p5Main.windowWidth / 4,
+      250,
       50,
       200,
       p5,
       world,
-      0.025
+      0.125
     );
+    console.log(p5Main.windowWidth/3)
     ground2 = new Boundary(
-      p5Main.windowWidth*.6,
-      p5Main.windowHeight*.8,
-      p5Main.windowWidth/3,
+      760,
+      1028,
+      320,
       50,
       200, 
       p5, 
@@ -105,10 +105,10 @@ function MatterWorld() {
     World.add(world, ground1.body);
     World.add(world, ground2.body)
 
-    generator = new Generator(p5Main.windowWidth / 3, 500, 20, "#45b6fe", p5);
+    generator = new Generator(700, 500, 20, "#45b6fe", p5);
     World.add(world, generator.body);
 
-    generator1 = new Generator(p5Main.windowWidth / 3, p5Main.windowHeight*.2, 20, "#ff791f", p5);
+    generator1 = new Generator(300, 250, 20, "#ff791f", p5);
     World.add(world, generator1.body);
 
     mConstraint = MouseConstraint.create(engine, options);
@@ -134,7 +134,7 @@ function MatterWorld() {
   };
 
   const draw = (p5) => {
-    p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+    // p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
     p5.background(60);
     if (beginAuto1) {
       let s = p5.frameCount;
@@ -305,14 +305,20 @@ function MatterWorld() {
 
   function changeBarrier1Tilt(event) {
     let inputTilt = parseInt(event.target.value)/1000
-    document.getElementById('barrier1Tilt').value = Math.PI * inputTilt
-    Body.setAnlge(ground1.body.angle, Math.PI * inputTilt)
+    document.getElementById('barrier1Tilt').value = inputTilt
+    Body.setAngle(ground1.body, Math.PI * inputTilt)
+  }
+
+  function changeBarrier2Tilt(event) {
+    let inputTilt = parseInt(event.target.value)/1000
+    document.getElementById('barrier2Tilt').value = inputTilt
+    Body.setAngle(ground2.body, Math.PI * inputTilt)
   }
 
   return (
     <>
     <Sketch setup={setup} draw={draw} mouseClicked={mp} />
-    <Header/>
+    {/* <Header/> */}
       <div style={{width: '15vw'}}>
         <Interface
           handleChangeGravityAmount={changeGravityAmount}
@@ -331,7 +337,7 @@ function MatterWorld() {
           handleFreqAmount={changeFilterFreq}
           handleChord={changeNoteArray}
           handleBarrier1Tilt={changeBarrier1Tilt}
-          // handleBarrier2Tilt={changeBarrier2Tilt}
+          handleBarrier2Tilt={changeBarrier2Tilt}
         />
       </div>
     </>
