@@ -30,42 +30,42 @@
 
 ### <u>Table of Contents</u>
 
-- <a href="#🌐-about-the-project">About the Project</a>
-  - <a href="#📖-description">Description</a>
-  - <a href="#🦠-known-bugs">Known Bugs</a>
-  - <a href="#🛠-built-with">Built With</a>
+- <a href="#about-the-project">About the Project</a>
+  - <a href="#description">Description</a>
+  - <a href="#known-bugs">Known Bugs</a>
+  - <a href="#built-with">Built With</a>
   <!-- * <a href="#🔍-preview">Preview</a> -->
-- <a href="#🏁-getting-started">Getting Started</a>
-  - <a href="#📋-prerequisites">Prerequisites</a>
-  - <a href="#⚙️-setup-and-use">Setup and Use</a>
-- <a href="#🤝-contributors">Auxiliary</a>
-  - <a href="#🤝-contributors">Contributors</a>
-  - <a href="#✉️-contact-and-support">Contact</a>
-  - <a href="#⚖️-license">License</a>
-  - <a href="#🌟-acknowledgements">Acknowledgements</a>
+- <a href="#getting-started">Getting Started</a>
+  - <a href="#prerequisites">Prerequisites</a>
+  - <a href="#setup-and-use">Setup and Use</a>
+- <a href="#contributors">Auxiliary</a>
+  - <a href="#contributors">Contributors</a>
+  - <a href="#contact-and-support">Contact</a>
+  - <a href="#license">License</a>
+  - <a href="#acknowledgements">Acknowledgements</a>
 
 ---
 
-## 🌐 About the Project
+## About the Project
 
-### 📖 Description
+### Description
 
 - An application that uses gravity emulation to generate complex arpeggiated progressions and aural textures.
 
-### 🔍 Examples & Resources
+### Examples & Resources
 
 - [Matter JS Documentation](https://brm.io/matter-js/)
 -[Tone JS Documentation](https://tonejs.github.io/docs/14.7.58/index.html)
 - [Basic Concepts](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API) behind Web Audio API
 - [Oscillator Node](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode) > a very cool [example](http://mdn.github.io/violent-theremin/)
 
-### 🦠 Known Bugs
+### Known Bugs
 
 - Will kill audio after the amount of generated circles overloads the polyphonic voices
 
 - Has some issues with window resizing. 
 
-### 🛠 Built With
+### Built With
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [React](https://reactjs.org/)
@@ -76,9 +76,9 @@
 
 ---
 
-## 🏁 Getting Started
+## Getting Started
 
-### 📋 Prerequisites
+### Prerequisites
 
 #### Install .NET Core
 
@@ -102,7 +102,7 @@ To view or edit the code, you will need an code editor or text editor. The popul
 3. Wait for download to complete, then install -- Windows will run the setup exe and macOS will drag and drop into applications.
 4. Optionally, create a [GitHub Account](https://github.com)
 
-### ⚙️ Setup and Use
+### Setup and Use
 
 #### Cloning
 
@@ -115,7 +115,7 @@ To view or edit the code, you will need an code editor or text editor. The popul
    - Code Editor - Run the command `atom .` or `code .` to open the project in Atom or VisualStudio Code respectively for review and editing.
    - Text Editor - Open by double clicking on any of the files to open in a text editor.
 
-### 🤝 Contributors
+### Contributors
 
 | Author                                                       |                      GitHub                       |                              Email                              |
 | ------------------------------------------------------------ | :-----------------------------------------------: | :-------------------------------------------------------------: |
@@ -123,13 +123,13 @@ To view or edit the code, you will need an code editor or text editor. The popul
 
 ---
 
-### ✉️ Contact and Support
+### Contact and Support
 
 If you have any feedback or concerns, please contact one of the contributors.
 
 ---
 
-### ⚖️ License
+### License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Copyright (C) 2020 Grant Eadie All Rights Reserved.
 
@@ -159,7 +159,7 @@ SOFTWARE.
 
 ---
 
-### 🌟 Acknowledgments
+### Acknowledgments
 
 #### [Epicodus](https://www.epicodus.com/)
 
@@ -167,6 +167,6 @@ SOFTWARE.
 
 ---
 
-## ‿︵‿︵‿ヽ(°□° )ノ︵‿︵‿︵
+## ‿︵‿︵‿┬─┬ノ( º _ ºノ)︵‿︵‿︵
 
 <center><a href="#">Return to Top</a></center>
